@@ -50,7 +50,7 @@ def find_image(src, tar):
     # 返回的坐标时相对于应用窗口的坐标
     image = ac.imread(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane\{}'.format(src))
     icon = ac.imread(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane\{}'.format(tar))
-    result = ac.find_template(image, icon, 0.8)
+    result = ac.find_template(image, icon, 0.7)
     if result:
         x = int(result['result'][0])
         y = int(result['result'][1])
@@ -70,3 +70,6 @@ def tap(x, y, index):
 def swipe(index, x1, y1, x2, y2):
     cmd = f'ld -s {index} input swipe {x1} {y1} {x2} {y2}'
     os.popen(cmd)
+
+def del_img(src):
+    os.remove(src)
