@@ -4,7 +4,7 @@ import random
 import re
 import sys
 import time
-
+import random
 import aircv as ac
 import win32gui
 from PyQt6.QtWidgets import QApplication
