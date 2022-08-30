@@ -60,6 +60,17 @@ def find_image(src, tar, confidence=0.7):
         return None
 
 
+def find_muti_image(src, tar, confidence=0.9):
+    # 同个图片内查询多个单位
+    image = ac.imread(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane\{}'.format(src))
+    icon = ac.imread(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane\{}'.format(tar))
+    result = ac.find_all_template(image, icon, threshold=confidence)
+    if not result:
+        return None
+    else:
+        return result
+
+
 def cf_action(src, tag):
     # 找图，点图等反馈的集大成者！ 逢魔函数！
     screen_shot(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane', title='碧蓝航线')
@@ -70,20 +81,20 @@ def cf_action(src, tag):
             tap(x, y, 1)
             break
         else:
-            conf -= 0.1
-    time.sleep(0.5)
+            conf -= 0.05
+    time.sleep(1)
 
 
 # 模拟点击与滑动
 
 
 def tap(x, y, index):
-    cmd = f'ld -s {index} input tap {x+random.randint(-5, 5)} {y-42+random.randint(-5, 5)}'
+    cmd = f'ld -s {index} input tap {x + random.randint(-5, 5)} {y - 42 + random.randint(-5, 5)}'
     os.popen(cmd)
 
 
 def swipe(index, x1, y1, x2, y2):
-    cmd = f'ld -s {index} input swipe {x1+random.randint(-5, 5)} {y1-42+random.randint(-5, 5)} {x2+random.randint(-5, 5)} {y2-42+random.randint(-5, 5)}'
+    cmd = f'ld -s {index} input swipe {x1 + random.randint(-5, 5)} {y1 - 42 + random.randint(-5, 5)} {x2 + random.randint(-5, 5)} {y2 - 42 + random.randint(-5, 5)}'
     os.popen(cmd)
 
 

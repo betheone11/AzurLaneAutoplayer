@@ -2,12 +2,9 @@
 import utils
 import os
 import time
+import aircv as ac
 
 
-
-titles = utils.get_all_title()
-hwnds = utils.get_all_handle(titles)
-hwnd = hwnds['碧蓝航线']
 # src = f'{hwnd}.png'
 # tag_1 = 'sp3.png'
 # tag_2 = 'start.png'
@@ -33,3 +30,22 @@ hwnd = hwnds['碧蓝航线']
 # x, y = utils.find_image('{}.png'.format(hwnd), 'tidy.png',confidence=0.7)
 # utils.tap(x, y, 1)
 
+
+def select_team(src, tag):
+    image = ac.imread(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane\{}'.format(src))
+    icon = ac.imread(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane\{}'.format(tag))
+    return ac.find_all_template(image, icon, threshold=0.9)
+
+
+titles = utils.get_all_title()
+hwnds = utils.get_all_handle(titles)
+hwnd = hwnds['碧蓝航线']
+utils.screen_shot(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane', title='碧蓝航线')
+a = 'no.png'
+b = f'{hwnd}.png'
+detail = select_team(b, a)
+detail.append(9)
+if not detail:
+    print(1)
+else:
+    print(0)
