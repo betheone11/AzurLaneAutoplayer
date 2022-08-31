@@ -4,7 +4,6 @@ import random
 import re
 import sys
 import time
-import random
 import aircv as ac
 import win32gui
 from PyQt6.QtWidgets import QApplication
@@ -74,7 +73,7 @@ def find_muti_image(src, tar, confidence=0.9):
 def cf_action(src, tag):
     # 找图，点图等反馈的集大成者！ 逢魔函数！
     screen_shot(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane', title='碧蓝航线')
-    conf = 0.7
+    conf = 0.9
     while True:
         if find_image(src, tag, conf):
             x, y = find_image(src, tag)
@@ -82,7 +81,7 @@ def cf_action(src, tag):
             break
         else:
             conf -= 0.05
-    time.sleep(1)
+    time.sleep(random.uniform(0.5, 1.5))
 
 
 # 模拟点击与滑动
@@ -94,7 +93,8 @@ def tap(x, y, index):
 
 
 def swipe(index, x1, y1, x2, y2):
-    cmd = f'ld -s {index} input swipe {x1 + random.randint(-5, 5)} {y1 - 42 + random.randint(-5, 5)} {x2 + random.randint(-5, 5)} {y2 - 42 + random.randint(-5, 5)}'
+    cmd = f'ld -s {index} input swipe {x1 + random.randint(-5, 5)} \
+{y1 - 42 + random.randint(-5, 5)} {x2 +random.randint(-5, 5)} {y2 - 42 + random.randint(-5, 5)} '
     os.popen(cmd)
 
 
