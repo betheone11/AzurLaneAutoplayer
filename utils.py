@@ -8,7 +8,6 @@ import aircv as ac
 import win32gui
 from PyQt6.QtWidgets import QApplication
 
-
 # 截图
 
 
@@ -82,6 +81,7 @@ def cf_action(src, tag):
         else:
             conf -= 0.05
     time.sleep(random.uniform(0.5, 1.5))
+
 
 
 # 模拟点击与滑动

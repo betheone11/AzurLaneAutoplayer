@@ -6,8 +6,9 @@
 后期可创造多个实例运用线程池实现一个脚本操控多个模拟器，要对tap等函数的index进行修改
 """
 # 后期多任务操作流程运用index随即顺序进行，点击一些无意义点
-
-
+# 单独一个文件存储常量
+# 优化控制台输出
+# 选择出战舰队需要优化
 # -*- coding: utf-8 -*-
 import utils
 import os
@@ -21,7 +22,7 @@ class Sp:
         hwnds = utils.get_all_handle(titles)
         self.hwnd = hwnds['碧蓝航线']
         self.src = f'{self.hwnd}.png'
-        self.target = 'Sp4.png'
+        self.target = '11_4.png'
         self.go = 'start.png'
         self.working = 'continue_work.png'
         self.full_store = 'full_store.png'
@@ -80,7 +81,7 @@ class Sp:
             if utils.find_image(self.src, self.noo, conf):
                 x, y = utils.find_image(self.src, self.noo)
                 utils.tap(x, y, 1)
-                time.sleep(random.uniform(0.5, 1.5))
+                time.sleep(random.uniform(1, 1.5))
                 break
             else:
                 conf -= 0.1
@@ -93,6 +94,7 @@ class Sp:
             if utils.find_image(self.src, self.WhileCancel, conf):
                 x, y = utils.find_image(self.src, self.WhileCancel)
                 utils.tap(x, y, 1)
+                time.sleep(random.uniform(1, 1.5))
                 break
             else:
                 conf -= 0.1
@@ -119,6 +121,7 @@ class Sp:
             utils.cf_action(self.src, self.No6)
         utils.tap(x2, y2, 1)
         time.sleep(random.uniform(0.5, 1))
+
         utils.screen_shot(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane', title='碧蓝航线')
         if index_2 in [1, 2, index_1]:
             utils.tap(x2, y2, 1)
@@ -170,12 +173,11 @@ class Sp:
             time.sleep(random.uniform(0.5, 1))
         try:
             self.gaming_retire()
-            time.sleep(random.uniform(0.5, 1))
+            time.sleep(random.uniform(1, 1.5))
             self.cancel()
             utils.cf_action(self.src, self.autoplay)
         except:
-            self.cancel()
-            time.sleep(random.uniform(1, 1.5))
+            time.sleep(2)
             utils.cf_action(self.src, self.autoplay)
         return print('清理仓库完成')
 
@@ -190,8 +192,8 @@ ld = r'D:\leidian\LDPlayer4 '
 os.chdir(ld)
 print('开始运行脚本')
 n = int(input('请输入刷多少次'))
-index_1 = int(input('请输入您要出战的第一个舰队：'))
-index_2 = int(input('请输入您要出战的第二个舰队：'))
+# index_1 = int(input('请输入您要出战的第一个舰队：'))
+# index_2 = int(input('请输入您要出战的第二个舰队：'))
 count = 0
 sp = Sp()  # 创建实例
 # 开始初始化工作：进入要刷的关卡并自动战斗
@@ -202,7 +204,7 @@ utils.screen_shot(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane', title='
 sp.start()
 time.sleep(random.uniform(0.8, 1.2))
 utils.screen_shot(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane', title='碧蓝航线')
-if utils.find_image(sp.src, sp.full_store):  # 判断仓库是否已满
+if utils.find_image(sp.src, sp.full_store):  # 判断仓库是否已满, 需要优化！！！！！！
     sp.clear_storehouse()
     utils.screen_shot(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane', title='碧蓝航线')
     sp.init()
@@ -210,13 +212,14 @@ if utils.find_image(sp.src, sp.full_store):  # 判断仓库是否已满
     utils.screen_shot(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane', title='碧蓝航线')
     sp.start()
     time.sleep(random.uniform(0.8, 1.2))
-sp.select_team(index_1, index_2)
-print('选择舰队完成')
+# sp.select_team(index_1, index_2)
+# print('选择舰队完成')
 utils.screen_shot(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane', title='碧蓝航线')
 sp.start()
 # 初始化完成，已进入战斗
 for i in range(n):
     count += 1
+    exit_flag = 0
     utils.screen_shot(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane', title='碧蓝航线')
     while True:
         sp.continue_work()
@@ -229,10 +232,13 @@ for i in range(n):
             continue
         elif utils.find_image(sp.src, sp.LowMood):  # 判断是否低心情
             sp.low_mood()
+            exit_flag = 1
             break
         else:
-            print("等待本轮完成")
+            # print("等待本轮完成")
             time.sleep(random.uniform(4, 8))
     print(f'已完成第{count}轮工作，还剩{n - count}次完成')
+    if exit_flag == 1:  # 低心情时结束任务
+        break
 print('所有任务已完成')
 utils.del_img('{}.png'.format(sp.hwnd))  # 删除运行用的截图，防止使用次数过多后引起脚本占用内存过大
