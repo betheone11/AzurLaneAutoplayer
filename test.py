@@ -5,7 +5,7 @@ import time
 import aircv as ac
 import win32gui
 import random
-
+import Contains
 
 # src = f'{hwnd}.png'
 # tag_1 = 'sp3.png'
@@ -64,16 +64,25 @@ hwnds = utils.get_all_handle(titles)
 #     print(3)
 # elif a == 4:
 #     print(4)
-count = 0
-for i in range(6):
-    count += 1
-    while True:
-        a = int(input())
-        if a == 3:
-            print(123131)
-            continue
-        print(1)
-        print('count:', count)
+# count = 0
+# for i in range(6):
+#     count += 1
+#     while True:
+#         a = int(input())
+#         if a == 3:
+#             print(123131)
+#             continue
+#         print(1)
+#         print('count:', count)
+Time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+for i in range(5):
+    print(f'[{time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())}]')
+    time.sleep(0.5)
+
+
+
+
+
 # hwnd = hwnds['碧蓝航线']
 # utils.screen_shot(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane', title='碧蓝航线')
 # a = 'quit_loop.png'
