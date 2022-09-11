@@ -8,6 +8,7 @@ import aircv as ac
 import win32gui
 from PyQt6.QtWidgets import QApplication
 
+
 # 截图
 
 
@@ -79,7 +80,10 @@ def cf_action(src, tag):
             tap(x, y, 1)
             break
         else:
-            conf -= 0.05
+            if conf < 0.7:
+                raise IOError
+            else:
+                conf -= 0.05
     time.sleep(random.uniform(0.5, 1.5))
 
 

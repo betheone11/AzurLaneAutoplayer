@@ -13,6 +13,7 @@ import utils
 import os
 import time
 import random
+import UpperUtils
 from Contains import Contains
 
 
@@ -20,7 +21,6 @@ def continue_work():
     # 点击再次前往
     if utils.find_image(Contains.src, Contains.working):
         x, y = utils.find_image(Contains.src, Contains.working)
-        print(x, y)
         utils.tap(x, y, 1)
 
 
@@ -33,7 +33,7 @@ class Sp:
             x, y = utils.find_image(Contains.src, Contains.target)
             utils.tap(x, y, 1)
         else:
-            print(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]"+"[couldn't find image]")
+            print(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]" + "[couldn't find image]")
 
     def start(self):
         # 点击开始前往
@@ -41,7 +41,7 @@ class Sp:
             x, y = utils.find_image(Contains.src, Contains.go)
             utils.tap(x, y, 1)
         else:
-            print(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]"+"[couldn't find image]")
+            print(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]" + "[couldn't find image]")
 
     def yes(self):
         # 单击确定键
@@ -83,40 +83,34 @@ class Sp:
                 conf -= 0.1
 
     def select_team(self, index_1, index_2):
-        utils.screen_shot(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane', title='碧蓝航线')
-        team_selecter = utils.find_muti_image(src=Contains.src, tar=Contains.Select)
-        x1, y1 = team_selecter[0]['result']
-        x2, y2 = team_selecter[1]['result']
-        # 用字典优化
-        utils.tap(x1, y1, 1)
-        time.sleep(random.uniform(0.5, 1))
-        utils.screen_shot(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane', title='碧蓝航线')
-        if index_1 in [1, 2]:
-            utils.tap(x1, y1, 1)
-            time.sleep(random.uniform(0.5, 1))
-        elif index_1 == 3:
-            utils.cf_action(Contains.src, Contains.No3)
-        elif index_1 == 4:
-            utils.cf_action(Contains.src, Contains.No4)
-        elif index_1 == 5:
-            utils.cf_action(Contains.src, Contains.No5)
-        elif index_1 == 6:
-            utils.cf_action(Contains.src, Contains.No6)
-        utils.tap(x2, y2, 1)
-        time.sleep(random.uniform(0.5, 1))
-
-        utils.screen_shot(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane', title='碧蓝航线')
-        if index_2 in [1, 2, index_1]:
-            utils.tap(x2, y2, 1)
-            time.sleep(random.uniform(0.5, 1))
-        elif index_2 == 3:
-            utils.cf_action(Contains.src, Contains.No3)
-        elif index_2 == 4:
-            utils.cf_action(Contains.src, Contains.No4)
-        elif index_2 == 5:
-            utils.cf_action(Contains.src, Contains.No5)
-        elif index_2 == 6:
-            utils.cf_action(Contains.src, Contains.No6)
+        index = {1: Contains.No1, 2: Contains.No2, 3: Contains.No3, 4: Contains.No4,
+                 5: Contains.No5, 6: Contains.No6}
+        if index_1 == index_2:
+            raise Exception('输入格式错误')
+        elif index_1 == 1:
+            if index_2 == 2:
+                pass
+            else:
+                UpperUtils.clip_select_team(2)
+                utils.cf_action(Contains.src, index[index_2])
+        elif index_1 == 2:
+            UpperUtils.clip_select_team(2)
+            utils.cf_action(Contains.src, index[6])
+            UpperUtils.clip_select_team(1)
+            utils.cf_action(Contains.src, index[index_1])
+            if index_2 == 6:
+                pass
+            else:
+                UpperUtils.clip_select_team(2)
+                utils.cf_action(Contains.src, index[index_2])
+        elif index_2 == 2:
+            UpperUtils.clip_select_team(1)
+            utils.cf_action(Contains.src, index[index_1])
+        else:
+            UpperUtils.clip_select_team(1)
+            utils.cf_action(Contains.src, index[index_1])
+            UpperUtils.clip_select_team(2)
+            utils.cf_action(Contains.src, index[index_2])
 
     def gaming_retire(self):
         # 实现作战中退役船
@@ -139,9 +133,9 @@ class Sp:
                 self.yes()
                 time.sleep(random.uniform(0.3, 1))
                 utils.tap(random.uniform(0, 1000), random.uniform(60, 700), 1)
-        return print(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]"+"[退役完成]")
+        return print(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]" + "[退役完成]")
 
-    def clear_storehouse(self):
+    def clear_storehouse(self, index):
         # 作战中清理仓库
         if utils.find_image(Contains.src, Contains.full_store):
             x, y = utils.find_image(Contains.src, Contains.tidy)
@@ -151,11 +145,12 @@ class Sp:
             self.gaming_retire()
             time.sleep(random.uniform(1, 1.5))
             self.cancel()
-            utils.cf_action(Contains.src, Contains.autoplay) # 开始游戏前如果退役的话会出错！
+            if index == 0:
+                utils.cf_action(Contains.src, Contains.autoplay)
         except:
             time.sleep(2)
             utils.cf_action(Contains.src, Contains.autoplay)
-        return print(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]"+"[清理仓库完成]")
+        return print(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]" + "[清理仓库完成]")
 
     def low_mood(self):
         # 地心情是退出作战
@@ -164,32 +159,29 @@ class Sp:
         self.yes()
 
 
-ld = r'D:\leidian\LDPlayer4 '
+ld = r'D:\leidian\LDPlayer4'
 os.chdir(ld)
-print(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]"+"[开始运行脚本]")
-n = int(input(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]"+"[请输入刷多少次]"))
+print(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]" + "[开始运行脚本]")
+n = int(input(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]" + "[请输入刷多少次]"))
 # index_1 = int(input('请输入您要出战的第一个舰队：'))
 # index_2 = int(input('请输入您要出战的第二个舰队：'))
 count = 0
 sp = Sp()  # 创建实例
 # 开始初始化工作：进入要刷的关卡并自动战斗
-utils.screen_shot(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane', title='碧蓝航线')
-sp.init()
-time.sleep(random.uniform(0.8, 1.2))
-utils.screen_shot(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane', title='碧蓝航线')
-sp.start()
-time.sleep(random.uniform(0.8, 1.2))
-utils.screen_shot(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane', title='碧蓝航线')
-if utils.find_image(Contains.src, Contains.full_store):  # 判断仓库是否已满, 需要优化！！！！！！
-    sp.clear_storehouse()
+while True:
     utils.screen_shot(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane', title='碧蓝航线')
     sp.init()
     time.sleep(random.uniform(0.8, 1.2))
     utils.screen_shot(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane', title='碧蓝航线')
     sp.start()
     time.sleep(random.uniform(0.8, 1.2))
+    utils.screen_shot(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane', title='碧蓝航线')
+    if not utils.find_image(Contains.src, Contains.full_store):
+        break
+    else:
+        sp.clear_storehouse(index=1)
 # sp.select_team(index_1, index_2)
-# print('选择舰队完成')
+# print(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]"+'[选择舰队完成]')
 utils.screen_shot(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane', title='碧蓝航线')
 sp.start()
 # 初始化完成，已进入战斗
@@ -204,17 +196,16 @@ for i in range(n):
         if utils.find_image(Contains.src, Contains.working):  # 判断是否结束一轮
             break
         elif utils.find_image(Contains.src, Contains.full_store):  # 判断仓库是否已满
-            sp.clear_storehouse()
+            sp.clear_storehouse(index=0)
             continue
         elif utils.find_image(Contains.src, Contains.LowMood):  # 判断是否低心情
-            sp.low_mood()
+            sp.low_mood()  # 图片无法识别准确，改成文字识别并运用正则实现低心情功能
             exit_flag = 1
             break
         else:
-            # print("等待本轮完成")
             time.sleep(random.uniform(4, 8))
-    print(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]"+f"[已完成第{count}轮工作，还剩{n - count}次完成]")
+    print(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]" + f"[已完成第{count}轮工作，还剩{n - count}次完成]")
     if exit_flag == 1:  # 低心情时结束任务
         break
-print(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]"+'[所有任务已完成]')
+print(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]" + '[所有任务已完成]')
 utils.del_img('{}.png'.format(Contains.hwnd))  # 删除运行用的截图，防止使用次数过多后引起脚本占用内存过大

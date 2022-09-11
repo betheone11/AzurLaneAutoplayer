@@ -2,7 +2,6 @@ import utils
 import time
 
 
-
 class Contains:
     titles = utils.get_all_title()
     hwnds = utils.get_all_handle(titles)
@@ -22,6 +21,8 @@ class Contains:
     WhileCancel = 'w_no.png'
     Quit = 'quit_loop.png'
     Select = 'select.png'
+    No1 = 'No1.png'
+    No2 = 'No2.png'
     No3 = 'No3.png'
     No4 = 'No4.png'
     No5 = 'No5.png'
