@@ -6,10 +6,11 @@ import aircv as ac
 import win32gui
 import random
 
-
 # import Contains
 
-
+# titles = utils.get_all_title()
+# hwnds = utils.get_all_handle(titles)
+# -----------------------------------------------------------------------------------------
 # src = f'{hwnd}.png'
 # tag_1 = 'sp3.png'
 # tag_2 = 'start.png'
@@ -22,7 +23,6 @@ import random
 #     utils.tap(x, y, 1)
 # else:
 #     print("could't find image")
-
 # utils.screen_shot(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane',title='碧蓝航线')
 # if utils.find_image(src, tag_2):
 #     x, y = utils.find_image(src, tag_2)
@@ -34,21 +34,15 @@ import random
 # utils.screen_shot(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane', title='碧蓝航线')
 # x, y = utils.find_image('{}.png'.format(hwnd), 'tidy.png',confidence=0.7)
 # utils.tap(x, y, 1)
-
-
-def select_team(src, tag):
-    image = ac.imread(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane\{}'.format(src))
-    icon = ac.imread(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane\{}'.format(tag))
-    result = ac.find_all_template(image, icon, threshold=0.9)
-    if not result:
-        return None
-    else:
-        return result
-    # return result
-
-
-titles = utils.get_all_title()
-hwnds = utils.get_all_handle(titles)
+# def select_team(src, tag):
+#     image = ac.imread(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane\{}'.format(src))
+#     icon = ac.imread(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane\{}'.format(tag))
+#     result = ac.find_all_template(image, icon, threshold=0.9)
+#     if not result:
+#         return None
+#     else:
+#         return result
+# return result
 # print(utils.cf_action(b, a))
 # detail = select_team(b, a)
 # print(detail[0]['result'])
@@ -93,44 +87,30 @@ hwnds = utils.get_all_handle(titles)
 #     i = int(input())
 #     if i != 1:
 #         break
-dic = {1: 'index1', 2: 'index2', 3: 'index3', 4: 'index4', 5: 'index5', 6: 'index6'}
-x1 = int(input())
-x2 = int(input())
-if x1 == x2:
-    raise Exception('输入格式错误')
-elif x1 == 1:
-    print('1:p1')
-    if x2 == 2:
-        print('2:p2')
-    else:
-        print('2:', x2)
-elif x1 == 2:
-    print('2:6')
-    print('1:', x1)
-    if x2 == 6:
-        pass
-    else:
-        print('2', x2)
-elif x2 == 2:
-    print('1:', x1)
-    print('2:p2')
-else:
-    print('1:', x1)
-    print('2:', x2)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# dic = {1: 'index1', 2: 'index2', 3: 'index3', 4: 'index4', 5: 'index5', 6: 'index6'}
+# x1 = int(input())
+# x2 = int(input())
+# if x1 == x2:
+#     raise Exception('输入格式错误')
+# elif x1 == 1:
+#     print('1:p1')
+#     if x2 == 2:
+#         print('2:p2')
+#     else:
+#         print('2:', x2)
+# elif x1 == 2:
+#     print('2:6')
+#     print('1:', x1)
+#     if x2 == 6:
+#         pass
+#     else:
+#         print('2', x2)
+# elif x2 == 2:
+#     print('1:', x1)
+#     print('2:p2')
+# else:
+#     print('1:', x1)
+#     print('2:', x2)
 
 
 # hwnd = hwnds['碧蓝航线']
@@ -168,3 +148,9 @@ else:
 # elif index_2 == 6:
 #     utils.cf_action(Contains.src, Contains.No6)
 
+x1 = {'r': (1, 5)}
+x2 = {'r': (1, 4)}
+c = [x1, x2]
+# c = sorted(c, key= lambda a:a['r'][1])
+for i in c:
+    print(i)
