@@ -9,6 +9,7 @@
 # 选择出战舰队需要优化
 # 将图像识别升级为文字识别
 # 学习行为树
+# 任务完成后弹窗
 # -*- coding: utf-8 -*-
 import utils
 import os

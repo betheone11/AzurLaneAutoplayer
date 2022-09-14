@@ -5,7 +5,8 @@ import time
 import aircv as ac
 import win32gui
 import random
-
+from Contains import Contains
+import UpperUtils
 # import Contains
 
 # titles = utils.get_all_title()
@@ -148,9 +149,15 @@ import random
 # elif index_2 == 6:
 #     utils.cf_action(Contains.src, Contains.No6)
 
-x1 = {'r': (1, 5)}
-x2 = {'r': (1, 4)}
-c = [x1, x2]
-# c = sorted(c, key= lambda a:a['r'][1])
-for i in c:
-    print(i)
+# x1 = {'r': (1, 5)}
+# x2 = {'r': (1, 4)}
+# c = [x1, x2]
+# # c = sorted(c, key= lambda a:a['r'][1])
+# for i in c:
+#     print(i)
+# print(round(random.uniform(0, 1000),3))
+# UpperUtils.cancel()
+# time.sleep(0.5)
+# utils.cf_action(Contains.src, Contains.autoplay)
+for i in range(2, 10):
+    print(round(random.choice([random.uniform(100, 282), random.uniform(510, 1000)]), 3))

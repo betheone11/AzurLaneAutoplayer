@@ -134,13 +134,13 @@ def gaming_retire():
             time.sleep(random.uniform(0.5, 1.5))
             yes()
             time.sleep(random.uniform(0.5, 1.5))
-            utils.tap(round(random.uniform(0, 1000),3), round(random.uniform(60, 700), 1), 3)
+            utils.tap(round(random.uniform(100, 1000), 3), round(random.choice([random.uniform(100, 282), random.uniform(510, 700)]), 3), 1)
             time.sleep(random.uniform(0.5, 1.5))
             yes()
             time.sleep(random.uniform(0.3, 1))
             yes()
             time.sleep(random.uniform(0.3, 1))
-            utils.tap(round(random.uniform(0, 1000),3), round(random.uniform(60, 700), 1), 3)
+            utils.tap(round(random.uniform(100, 1000), 3), round(random.choice([random.uniform(100, 282), random.uniform(510, 700)]), 3), 1)
     return print(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]" + "[退役完成]")
 
 
@@ -154,6 +154,7 @@ def clear_storehouse(index):
         gaming_retire()
         time.sleep(random.uniform(1, 1.5))
         cancel()
+        time.sleep(1)  # 不能删掉，否则会找不到图片或者点击过快无法自律作战（就是卡住了）
         if index == 0:
             utils.cf_action(Contains.src, Contains.autoplay)
     except:

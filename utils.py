@@ -91,14 +91,14 @@ def cf_action(src, tag):
 
 
 def tap(x, y, index):
-    cmd = f'ld -s {index} input tap {x + random.randint(-5, 5)} {y - 42 + random.randint(-5, 5)}'
+    cmd = f'ld -s {index} input tap {x + random.randint(-5, 5)} {y - 34 + random.randint(-5, 5)}'
     os.popen(cmd)
     print(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]" + f"[点击坐标({x},{y})]")
 
 
 def swipe(index, x1, y1, x2, y2):
     cmd = f'ld -s {index} input swipe {x1 + random.randint(-5, 5)} \
-{y1 - 42 + random.randint(-5, 5)} {x2 + random.randint(-5, 5)} {y2 - 42 + random.randint(-5, 5)} '
+{y1 - 34 + random.randint(-5, 5)} {x2 + random.randint(-5, 5)} {y2 - 34 + random.randint(-5, 5)} '
     os.popen(cmd)
 
 
