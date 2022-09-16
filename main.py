@@ -5,6 +5,10 @@
 4 处理异常事件
 后期可创造多个实例运用线程池实现一个脚本操控多个模拟器，要对tap等函数的index进行修改
 """
+import os
+import random
+import time
+import UpperUtils
 # 后期多任务操作流程运用index随即顺序进行，点击一些无意义点
 # 选择出战舰队需要优化
 # 将图像识别升级为文字识别
@@ -12,17 +16,25 @@
 # 任务完成后弹窗
 # -*- coding: utf-8 -*-
 import utils
-import os
-import time
-import random
-import UpperUtils
 from Contains import Contains
 
-ld = r'D:\leidian\LDPlayer4'
-os.chdir(ld)
+# ---------------------------------------------------------------------------------------------
+# 请在此处根据您的环境更改设置
+ld = r'D:\leidian\LDPlayer4'  # 您的雷电模拟器地址
+index = 1  # 您的模拟器编号，可以在雷电多开器种查看
+
+# -------------------------------------------------------------------------------------------
 index_1 = 0
 index_2 = 0
+os.chdir(ld)
 print(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]" + "[开始运行脚本]")
+print('0:刷11-4\n1:刷活动D3')
+targets = int(input(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]" + "[请选择关卡]"))
+# target = Contains.target if targets == 0 else: target == Contains.D3
+if targets == 0:
+    target = Contains.target
+elif targets == 1:
+    target = Contains.D3
 n = int(input(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]" + "[请输入刷多少次]"))
 select_flag = int(input(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]" + '[是否进行舰队选择？]'))
 if select_flag == 1:
@@ -33,10 +45,10 @@ count = 0
 while True:
     # 循环体实现作战前清理仓库
     utils.screen_shot(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane', title='碧蓝航线')
-    UpperUtils.init()
+    UpperUtils.init(index, target)
     time.sleep(random.uniform(0.8, 1.2))
     utils.screen_shot(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane', title='碧蓝航线')
-    UpperUtils.start()
+    UpperUtils.start(index)
     time.sleep(random.uniform(0.8, 1.2))
     utils.screen_shot(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane', title='碧蓝航线')
     if not utils.find_image(Contains.src, Contains.full_store):
@@ -44,17 +56,17 @@ while True:
     else:
         UpperUtils.clear_storehouse(index=1)
 if select_flag == 1:
-    UpperUtils.select_team(index_1, index_2)
-    print(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]"+'[选择舰队完成]')
+    UpperUtils.select_team(index_1, index_2, index)
+    print(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]" + '[选择舰队完成]')
 utils.screen_shot(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane', title='碧蓝航线')
-UpperUtils.start()
+UpperUtils.start(index)
 # 初始化完成，已进入战斗
 for i in range(n):
     count += 1
     exit_flag = 0
     utils.screen_shot(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane', title='碧蓝航线')
     while True:
-        UpperUtils.continue_work()
+        UpperUtils.continue_work(index)
         time.sleep(random.uniform(0.5, 1))
         utils.screen_shot(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane', title='碧蓝航线')
         if utils.find_image(Contains.src, Contains.working):  # 判断是否结束一轮
@@ -63,7 +75,7 @@ for i in range(n):
             UpperUtils.clear_storehouse(index=0)
             continue
         elif utils.find_image(Contains.src, Contains.LowMood):  # 判断是否低心情
-            UpperUtils.low_mood()  # 图片无法识别准确，改成文字识别并运用正则实现低心情功能
+            UpperUtils.low_mood(index)  # 图片无法识别准确，改成文字识别并运用正则实现低心情功能
             exit_flag = 1
             break
         else:

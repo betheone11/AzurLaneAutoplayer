@@ -7,6 +7,7 @@ class Contains:
     hwnd = hwnds['碧蓝航线']
     src = f'{hwnd}.png'
     target = '11_4.png'
+    D3 = 'D3.png'
     go = 'start.png'
     working = 'continue_work.png'
     full_store = 'full_store.png'

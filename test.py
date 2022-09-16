@@ -7,6 +7,7 @@ import win32gui
 import random
 from Contains import Contains
 import UpperUtils
+
 # import Contains
 
 # titles = utils.get_all_title()
@@ -116,11 +117,11 @@ import UpperUtils
 
 # hwnd = hwnds['碧蓝航线']
 # utils.screen_shot(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane', title='碧蓝航线')
-# a = 'quit_loop.png'
-# b = f'{hwnd}.png'
-
-
-# utils.tap(x1, y1, 1)
+# # a = 'quit_loop.png'
+# # b = f'{hwnd}.png'
+#
+#
+# utils.tap(600, 600, 1)
 # time.sleep(random.uniform(0.5, 1))
 # utils.screen_shot(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane', title='碧蓝航线')
 # if index_1 in [1, 2]:
@@ -159,5 +160,11 @@ import UpperUtils
 # UpperUtils.cancel()
 # time.sleep(0.5)
 # utils.cf_action(Contains.src, Contains.autoplay)
-for i in range(2, 10):
-    print(round(random.choice([random.uniform(100, 282), random.uniform(510, 1000)]), 3))
+# for i in range(2, 10):
+#     print(round(random.choice([random.uniform(100, 282), random.uniform(510, 1000)]), 3))
+
+# ld = 'D:\leidian\LDPlayer4'
+# os.chdir(ld)
+# a = os.popen('ldconsole.exe list2', 'r')
+# for i in a:
+#     print(i)

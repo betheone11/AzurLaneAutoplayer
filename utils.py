@@ -70,14 +70,14 @@ def find_muti_image(src, tar, confidence=0.9):
         return result
 
 
-def cf_action(src, tag):
+def cf_action(src, tag, index):
     # 找图，点图等反馈的集大成者！ 逢魔函数！
     screen_shot(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane', title='碧蓝航线')
     conf = 0.9
     while True:
         if find_image(src, tag, conf):
             x, y = find_image(src, tag)
-            tap(x, y, 1)
+            tap(x, y, index)
             break
         else:
             if conf < 0.7:
