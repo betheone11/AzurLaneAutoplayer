@@ -70,14 +70,14 @@ def find_muti_image(src, tar, confidence=0.9):
         return result
 
 
-def cf_action(src, tag, index):
+def cf_action(src, tag, index, detals=''):
     # 找图，点图等反馈的集大成者！ 逢魔函数！
     screen_shot(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane', title='碧蓝航线')
     conf = 0.9
     while True:
         if find_image(src, tag, conf):
             x, y = find_image(src, tag)
-            tap(x, y, index)
+            print(tap(x, y, index)+detals)
             break
         else:
             if conf < 0.7:
@@ -93,7 +93,7 @@ def cf_action(src, tag, index):
 def tap(x, y, index):
     cmd = f'ld -s {index} input tap {x + random.randint(-5, 5)} {y - 34 + random.randint(-5, 5)}'
     os.popen(cmd)
-    print(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]" + f"[点击坐标({x},{y})]")
+    return f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]" + f"[点击坐标({x},{y})]"
 
 
 def swipe(index, x1, y1, x2, y2):

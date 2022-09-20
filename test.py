@@ -168,3 +168,4 @@ import UpperUtils
 # a = os.popen('ldconsole.exe list2', 'r')
 # for i in a:
 #     print(i)
+utils.tap(434,548,1)

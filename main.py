@@ -14,6 +14,7 @@ import UpperUtils
 # 将图像识别升级为文字识别
 # 学习行为树
 # 任务完成后弹窗
+# 增加追加次数功能
 # -*- coding: utf-8 -*-
 import utils
 from Contains import Contains
@@ -26,11 +27,11 @@ index = 1  # 您的模拟器编号，可以在雷电多开器种查看
 # -------------------------------------------------------------------------------------------
 index_1 = 0
 index_2 = 0
+target = None
 os.chdir(ld)
 print(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]" + "[开始运行脚本]")
 print('0:刷11-4\n1:刷活动D3')
 targets = int(input(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]" + "[请选择关卡]"))
-# target = Contains.target if targets == 0 else: target == Contains.D3
 if targets == 0:
     target = Contains.target
 elif targets == 1:
@@ -72,7 +73,7 @@ for i in range(n):
         if utils.find_image(Contains.src, Contains.working):  # 判断是否结束一轮
             break
         elif utils.find_image(Contains.src, Contains.full_store):  # 判断仓库是否已满
-            UpperUtils.clear_storehouse(index=0)
+            UpperUtils.clear_storehouse(index=1)
             continue
         elif utils.find_image(Contains.src, Contains.LowMood):  # 判断是否低心情
             UpperUtils.low_mood(index)  # 图片无法识别准确，改成文字识别并运用正则实现低心情功能
