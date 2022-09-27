@@ -1,37 +1,16 @@
 import os
 import os.path
 import random
-import re
 import sys
 import time
 import aircv as ac
+import cv2
 import win32gui
 from PyQt6.QtWidgets import QApplication
+from Contains import Contains
 
 
 # 截图
-
-
-def get_all_title():
-    # 获取所有的标题并存储在列表中
-    windows_list = []
-    game_windows_title_list = []
-    win32gui.EnumWindows(lambda hwnd, param: param.append(hwnd), windows_list)
-    for window in windows_list:
-        pattern = re.compile(r'[a-zA-Z\d\u4e00-\u9fa5]')
-        title = win32gui.GetWindowText(window)
-        if pattern.search(title):
-            game_windows_title_list.append(title)
-    return game_windows_title_list
-
-
-def get_all_handle(titles):
-    # 返回一个标题：句柄的字典
-    hwnds = {}
-    for title in titles:
-        hwnd = win32gui.FindWindow(0, title)
-        hwnds[title] = hwnd
-    return hwnds
 
 
 def screen_shot(path, win_class=None, title=None):
@@ -48,12 +27,12 @@ def screen_shot(path, win_class=None, title=None):
 
 def find_image(src, tar, confidence=0.7):
     # 返回的坐标时相对于应用窗口的坐标
-    image = ac.imread(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane\{}'.format(src))
-    icon = ac.imread(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane\{}'.format(tar))
-    result = ac.find_template(image, icon, confidence)
+    image = cv2.imread(r'.\icons\AzurLane\{}'.format(src))
+    icon = cv2.imread(r'.\icons\AzurLane\{}'.format(tar))
+    result = ac.find_template(image, icon, threshold=confidence)
     if result:
-        x = int(result['result'][0]) + random.randint(-5, 5)
-        y = int(result['result'][1]) + random.randint(-5, 5)
+        x = int(result['result'][0])
+        y = int(result['result'][1])
         return x, y
     else:
         return None
@@ -61,8 +40,8 @@ def find_image(src, tar, confidence=0.7):
 
 def find_muti_image(src, tar, confidence=0.9):
     # 同个图片内查询多个单位
-    image = ac.imread(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane\{}'.format(src))
-    icon = ac.imread(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane\{}'.format(tar))
+    image = cv2.imread(r'.\icons\AzurLane\{}'.format(src))
+    icon = cv2.imread(r'.\icons\AzurLane\{}'.format(tar))
     result = ac.find_all_template(image, icon, threshold=confidence)
     if not result:
         return None
@@ -72,12 +51,12 @@ def find_muti_image(src, tar, confidence=0.9):
 
 def cf_action(src, tag, index, detals=''):
     # 找图，点图等反馈的集大成者！ 逢魔函数！
-    screen_shot(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane', title='碧蓝航线')
+    screen_shot(r'.\icons\AzurLane', title='碧蓝航线')
     conf = 0.9
     while True:
         if find_image(src, tag, conf):
             x, y = find_image(src, tag)
-            print(tap(x, y, index)+detals)
+            print(tap(x, y, index) + detals)
             break
         else:
             if conf < 0.7:
@@ -91,16 +70,18 @@ def cf_action(src, tag, index, detals=''):
 
 
 def tap(x, y, index):
-    cmd = f'ld -s {index} input tap {x + random.randint(-5, 5)} {y - 34 + random.randint(-5, 5)}'
+    cmd = f'{Contains.ld[:2]}&& cd {Contains.ld} &&' \
+          f'ld -s {index} input tap {x + random.randint(-5, 5)} {y - 34 + random.randint(-5, 5)}'
     os.popen(cmd)
     return f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]" + f"[点击坐标({x},{y})]"
 
 
 def swipe(index, x1, y1, x2, y2):
-    cmd = f'ld -s {index} input swipe {x1 + random.randint(-5, 5)} \
+    cmd = f'{Contains.ld[:2]}&& cd {Contains.ld} &&' \
+          f'ld -s {index} input swipe {x1 + random.randint(-5, 5)} \
 {y1 - 34 + random.randint(-5, 5)} {x2 + random.randint(-5, 5)} {y2 - 34 + random.randint(-5, 5)} '
     os.popen(cmd)
 
 
 def del_img(src):
-    os.remove(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane\{}'.format(src))
+    os.remove(r'.\icons\AzurLane\{}'.format(src))

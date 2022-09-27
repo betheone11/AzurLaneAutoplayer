@@ -7,7 +7,7 @@ from Contains import Contains
 # ------------------------------基本操作函数-------------------------------------------------
 def yes(index):
     # 单击确定键
-    utils.screen_shot(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane', title='碧蓝航线')
+    utils.screen_shot(r'.\icons\AzurLane', title='碧蓝航线')
     conf = 0.9
     while True:
         if utils.find_image(Contains.src, Contains.yess, conf):
@@ -23,7 +23,7 @@ def yes(index):
 
 def cancel(index):
     # 单击红色取消键
-    utils.screen_shot(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane', title='碧蓝航线')
+    utils.screen_shot(r'.\icons\AzurLane', title='碧蓝航线')
     conf = 0.9
     while True:
         if utils.find_image(Contains.src, Contains.noo, conf):
@@ -39,7 +39,7 @@ def cancel(index):
 
 def while_cancel(index):
     # 单击白色取消键
-    utils.screen_shot(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane', title='碧蓝航线')
+    utils.screen_shot(r'.\icons\AzurLane', title='碧蓝航线')
     conf = 0.9
     while True:
         if utils.find_image(Contains.src, Contains.WhileCancel, conf):
@@ -56,7 +56,7 @@ def while_cancel(index):
 # --------------------------------流程控制函数-----------------------------------------------
 def init(index, target):
     # 点击想要刷的关卡
-    utils.screen_shot(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane', title='碧蓝航线')
+    utils.screen_shot(r'.\icons\AzurLane', title='碧蓝航线')
     if utils.find_image(Contains.src, target):
         x, y = utils.find_image(Contains.src, target)
         print(utils.tap(x, y, index) + '[点击进入的关卡]')
@@ -75,7 +75,7 @@ def start(index):
 
 def clip_select_team(flag=None):
     # 通过索引点击对应的选择舰队
-    utils.screen_shot(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane', title='碧蓝航线')
+    utils.screen_shot(r'.\icons\AzurLane', title='碧蓝航线')
     team_selector = utils.find_muti_image(src=Contains.src, tar=Contains.Select)
     team_selector = sorted(team_selector, key=lambda a: a['result'][1])
     x1, y1 = team_selector[0]['result']
@@ -125,12 +125,12 @@ def select_team(flag_1, flag_2, index):
 def gaming_retire(index):
     # 实现作战中退役船
     while True:
-        utils.screen_shot(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane', title='碧蓝航线')
+        utils.screen_shot(r'.\icons\AzurLane', title='碧蓝航线')
         if utils.find_image(Contains.src, Contains.retire):
             x1, y1 = utils.find_image(Contains.src, Contains.retire)
             print(utils.tap(x1, y1, 1) + '[点击一键退役]')
             time.sleep(random.uniform(0.5, 1.5))
-            utils.screen_shot(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane', title='碧蓝航线')
+            utils.screen_shot(r'.\icons\AzurLane', title='碧蓝航线')
             if utils.find_image(Contains.src, Contains.over_retire):
                 break
             time.sleep(random.uniform(0.5, 1.5))

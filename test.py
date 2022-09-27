@@ -1,17 +1,8 @@
 # -*- coding: utf-8 -*-
-import utils
-import os
-import time
-import aircv as ac
-import win32gui
-import random
-from Contains import Contains
-import UpperUtils
+# from Contains import Contains
 
-# import Contains
+# import UpperUtils
 
-# titles = utils.get_all_title()
-# hwnds = utils.get_all_handle(titles)
 # -----------------------------------------------------------------------------------------
 # src = f'{hwnd}.png'
 # tag_1 = 'sp3.png'
@@ -113,8 +104,6 @@ import UpperUtils
 # else:
 #     print('1:', x1)
 #     print('2:', x2)
-
-
 # hwnd = hwnds['碧蓝航线']
 # utils.screen_shot(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane', title='碧蓝航线')
 # # a = 'quit_loop.png'
@@ -149,7 +138,6 @@ import UpperUtils
 #     utils.cf_action(Contains.src, Contains.No5)
 # elif index_2 == 6:
 #     utils.cf_action(Contains.src, Contains.No6)
-
 # x1 = {'r': (1, 5)}
 # x2 = {'r': (1, 4)}
 # c = [x1, x2]
@@ -163,9 +151,49 @@ import UpperUtils
 # for i in range(2, 10):
 #     print(round(random.choice([random.uniform(100, 282), random.uniform(510, 1000)]), 3))
 
+
+# from Contains import Contains
+# import UpperUtils
+# import Contains
+# titles = utils.get_all_title()
+# hwnds = utils.get_all_handle(titles)
+# utils.screen_shot(r'E:\python project\MyItem\AutoPlayer\icons\AzurLane',title='碧蓝航线')
 # ld = 'D:\leidian\LDPlayer4'
 # os.chdir(ld)
 # a = os.popen('ldconsole.exe list2', 'r')
 # for i in a:
 #     print(i)
-utils.tap(434,548,1)
+# utils.tap(434,548,1)
+# print(sys.argv)
+# utils.screen_shot(r'.\icons\AzurLane',title='碧蓝航线')
+# img = ac.imread(r'.\icons\AzurLane\197906.png')
+# print(img)
+
+
+# def find1_image(src, tar, confidence=0.7):
+#     # 返回的坐标时相对于应用窗口的坐标
+#     image = cv2.imread(r'.\icons\AzurLane\{}'.format(src))
+#     icon = cv2.imread(r'.\icons\AzurLane\{}'.format(tar))
+#     result = ac.find_template(image, icon, threshold=confidence)
+#     if result:
+#         x = int(result['result'][0])
+#         y = int(result['result'][1])
+#         return x, y
+#     else:
+#         return None
+
+
+# utils.screen_shot(r'.\icons\AzurLane', title='碧蓝航线')
+# image = cv2.imread(r'.\icons\AzurLane\1115724.png')
+# icon = cv2.imread(r'.\icons\AzurLane\D3.png')
+# result = ac.find_template(image, icon, threshold=0.7)
+# print(result)
+# src = Contains.src
+# tar = Contains.D3
+# # print(utils.find_image(src, tar))
+# # UpperUtils.init(1, Contains.D3)
+# cmd = f'D:&& cd D:\leidian\LDPlayer4 && ld -s 1 input tap 1000 300'
+# os.system(cmd)
+ld = r' D:\leidian\LDPlayer4'  # 您的雷电模拟器地址
+ld = ld.strip()
+print(ld[0:2])
