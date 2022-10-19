@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 """
 1 后台截图
 2 图像识别
@@ -5,9 +6,10 @@
 4 处理异常事件
 后期可创造多个实例运用线程池实现一个脚本操控多个模拟器，要对tap等函数的index进行修改
 """
+
+# todo 优化输入，增加健壮性！ 清理仓库依然存在识别出错问题,开辟一个检测错误的线程，清理仓库完成后关闭
 import random
 import time
-
 import UpperUtils
 # 后期多任务操作流程运用index随即顺序进行，点击一些无意义点
 # 选择出战舰队需要优化
@@ -21,39 +23,39 @@ from Contains import Contains
 
 index_1 = 0
 index_2 = 0
+select_flag = 0
 target = None
 print(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]" + "[开始运行脚本]")
-print('0:刷11-4\n1:刷活动D3')
-targets = int(input(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]" + "[请选择关卡]"))
-if targets == 0:
-    target = Contains.target
-elif targets == 1:
-    target = Contains.D3
+# print('0:刷11-4\n1:刷活动D3')
+# targets = int(input(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]" + "[请选择关卡]"))
+# if targets == 0:
+#     target = Contains.target
+# elif targets == 1:
+#     target = Contains.D3
 n = int(input(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]" + "[请输入刷多少次]"))
-select_flag = int(input(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]" + '[是否进行舰队选择？]'))
-if select_flag == 1:
-    index_1 = int(input(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]" + '[请输入您要出战的第一个舰队]'))
-    index_2 = int(input(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]" + '[请输入您要出战的第二个舰队]'))
+# select_flag = int(input(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]" + '[是否进行舰队选择？]'))
+# if select_flag == 1:
+#     index_1 = int(input(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]" + '[请输入您要出战的第一个舰队]'))
+#     index_2 = int(input(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]" + '[请输入您要出战的第二个舰队]'))
 count = 0
 # 开始初始化工作：进入要刷的关卡并自动战斗
-while True:
-    # 循环体实现作战前清理仓库
-    utils.screen_shot(r'.\icons\AzurLane', title='碧蓝航线')
-    UpperUtils.init(1, Contains.D3)
-    time.sleep(random.uniform(0.8, 1.2))
-    utils.screen_shot(r'.\icons\AzurLane', title='碧蓝航线')
-    UpperUtils.start(Contains.index)
-    time.sleep(random.uniform(0.8, 1.2))
-    utils.screen_shot(r'.\icons\AzurLane', title='碧蓝航线')
-    if not utils.find_image(Contains.src, Contains.full_store):
-        break
-    else:
-        UpperUtils.clear_storehouse(index=1)
-if select_flag == 1:
-    UpperUtils.select_team(index_1, index_2, Contains.index)
-    print(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]" + '[选择舰队完成]')
-utils.screen_shot(r'.\icons\AzurLane', title='碧蓝航线')
-UpperUtils.start(Contains.index)
+# while True:
+#     循环体实现作战前1
+#     清理仓库
+#     UpperUtils.init(1, Contains.D3)
+#     time.sleep(random.uniform(0.8, 1.2))
+#     UpperUtils.start(Contains.index)
+#     time.sleep(random.uniform(0.8, 1.2))
+#     utils.screen_shot(r'.\icons\AzurLane', title='碧蓝航线')
+#     if not utils.find_image(Contains.src, Contains.full_store):
+#         break
+#     else:
+#         UpperUtils.clear_storehouse(index=1)
+# if select_flag == 1:
+#     UpperUtils.select_team(index_1, index_2, Contains.index)
+#     print(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]" + '[选择舰队完成]')
+# utils.screen_shot(r'.\icons\AzurLane', title='碧蓝航线')
+# UpperUtils.start(Contains.index)
 # 初始化完成，已进入战斗
 for i in range(n):
     count += 1

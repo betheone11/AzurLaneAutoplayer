@@ -70,10 +70,12 @@ def cf_action(src, tag, index, detals=''):
 
 
 def tap(x, y, index):
+    x1 = x + random.randint(-15, 15)
+    y1 = y - 34 + random.randint(-10, 10)
     cmd = f'{Contains.ld[:2]}&& cd {Contains.ld} &&' \
-          f'ld -s {index} input tap {x + random.randint(-5, 5)} {y - 34 + random.randint(-5, 5)}'
+          f'ld -s {index} input tap {x1} {y1}'
     os.popen(cmd)
-    return f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]" + f"[点击坐标({x},{y})]"
+    return f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]" + f"[点击坐标({x1},{y1})]"
 
 
 def swipe(index, x1, y1, x2, y2):

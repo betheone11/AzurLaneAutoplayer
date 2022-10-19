@@ -1,14 +1,15 @@
 import random
 import time
+
 import utils
 from Contains import Contains
 
 
 # ------------------------------基本操作函数-------------------------------------------------
-def yes(index):
+def yes(index, threshold=0.7):
     # 单击确定键
-    utils.screen_shot(r'.\icons\AzurLane', title='碧蓝航线')
     conf = 0.9
+    utils.screen_shot(r'.\icons\AzurLane', title='碧蓝航线')
     while True:
         if utils.find_image(Contains.src, Contains.yess, conf):
             x, y = utils.find_image(Contains.src, Contains.yess)
@@ -17,7 +18,7 @@ def yes(index):
             break
         else:
             conf -= 0.05
-            if conf < 0.7:
+            if conf < threshold:
                 raise Exception("couldn't find image")
 
 
@@ -66,6 +67,7 @@ def init(index, target):
 
 def start(index):
     # 点击开始前往
+    utils.screen_shot(r'.\icons\AzurLane', title='碧蓝航线')
     if utils.find_image(Contains.src, Contains.go):
         x, y = utils.find_image(Contains.src, Contains.go)
         print(utils.tap(x, y, index) + '[点击开始前往]')
@@ -134,15 +136,15 @@ def gaming_retire(index):
             if utils.find_image(Contains.src, Contains.over_retire):
                 break
             time.sleep(random.uniform(0.5, 1.5))
-            yes(index)
+            yes(index, 0.9)
             time.sleep(random.uniform(0.5, 1.5))
             print(utils.tap(round(random.uniform(100, 1000), 3),
                             round(random.choice([random.uniform(100, 282), random.uniform(510, 700)]), 3),
                             1) + '[随机点击]')
             time.sleep(random.uniform(0.5, 1.5))
-            yes(index)
+            yes(index, 0.9)
             time.sleep(random.uniform(0.3, 1))
-            yes(index)
+            yes(index, 0.9)
             time.sleep(random.uniform(0.3, 1))
             print(utils.tap(round(random.uniform(100, 1000), 3),
                             round(random.choice([random.uniform(100, 282), random.uniform(510, 700)]), 3),

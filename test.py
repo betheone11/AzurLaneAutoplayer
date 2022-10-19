@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-# from Contains import Contains
-
-# import UpperUtils
+import UpperUtils
 
 # -----------------------------------------------------------------------------------------
 # src = f'{hwnd}.png'
@@ -194,6 +192,7 @@
 # # UpperUtils.init(1, Contains.D3)
 # cmd = f'D:&& cd D:\leidian\LDPlayer4 && ld -s 1 input tap 1000 300'
 # os.system(cmd)
-ld = r' D:\leidian\LDPlayer4'  # 您的雷电模拟器地址
-ld = ld.strip()
-print(ld[0:2])
+# ld = r' D:\leidian\LDPlayer4'  # 您的雷电模拟器地址
+# ld = ld.strip()
+# print(ld[0:2])
+UpperUtils.yes(1, 0.95)
