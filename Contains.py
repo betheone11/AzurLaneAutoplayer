@@ -56,3 +56,7 @@ class Contains:
     No4 = 'No4.png'
     No5 = 'No5.png'
     No6 = 'No6.png'
+    Finish = 'Finish.png'
+    TapContinue = 'TapContinue.png'
+    SmContinue = 'Scontinue.png'
+    SpecAgain = 'SpecialAgain.png'

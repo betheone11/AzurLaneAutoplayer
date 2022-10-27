@@ -56,11 +56,11 @@ def cf_action(src, tag, index, detals=''):
     while True:
         if find_image(src, tag, conf):
             x, y = find_image(src, tag)
-            print(tap(x, y, index) + detals)
+            print(tap(x, y, index) + '[' + detals + ']')
             break
         else:
             if conf < 0.7:
-                raise IOError
+                raise Exception("couldn't find image")
             else:
                 conf -= 0.05
     time.sleep(random.uniform(0.5, 1.5))
