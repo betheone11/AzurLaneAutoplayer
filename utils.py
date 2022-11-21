@@ -6,6 +6,7 @@ import time
 import aircv as ac
 import cv2
 import win32gui
+from loguru import logger
 from PyQt6.QtWidgets import QApplication
 from Contains import Contains
 
@@ -56,7 +57,7 @@ def cf_action(src, tag, index, detals=''):
     while True:
         if find_image(src, tag, conf):
             x, y = find_image(src, tag)
-            print(tap(x, y, index) + '[' + detals + ']')
+            logger.info(tap(x, y, index) + '[' + detals + ']')
             break
         else:
             if conf < 0.7:
@@ -75,7 +76,7 @@ def tap(x, y, index):
     cmd = f'{Contains.ld[:2]}&& cd {Contains.ld} &&' \
           f'ld -s {index} input tap {x1} {y1}'
     os.popen(cmd)
-    return f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]" + f"[点击坐标({x1},{y1})]"
+    return f"[点击坐标({x1},{y1})]"
 
 
 def swipe(index, x1, y1, x2, y2):

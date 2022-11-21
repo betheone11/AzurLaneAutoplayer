@@ -3,6 +3,7 @@ import time
 
 import utils
 from Contains import Contains
+from loguru import logger
 
 
 # ------------------------------基本操作函数-------------------------------------------------
@@ -13,7 +14,7 @@ def yes(index, threshold=0.7):
     while True:
         if utils.find_image(Contains.src, Contains.yess, conf):
             x, y = utils.find_image(Contains.src, Contains.yess)
-            print(utils.tap(x, y, index) + '[点击确定键]')
+            logger.info(utils.tap(x, y, index) + '[点击确定键]')
             time.sleep(random.uniform(0.5, 2))
             break
         else:
@@ -29,7 +30,7 @@ def cancel(index):
     while True:
         if utils.find_image(Contains.src, Contains.noo, conf):
             x, y = utils.find_image(Contains.src, Contains.noo)
-            print(utils.tap(x, y, index) + '[点击取消键]')
+            logger.info(utils.tap(x, y, index) + '[点击取消键]')
             time.sleep(random.uniform(1, 1.5))
             break
         else:
@@ -45,7 +46,7 @@ def while_cancel(index):
     while True:
         if utils.find_image(Contains.src, Contains.WhileCancel, conf):
             x, y = utils.find_image(Contains.src, Contains.WhileCancel)
-            print(utils.tap(x, y, index) + '[点击取消键]')
+            logger.info(utils.tap(x, y, index) + '[点击取消键]')
             time.sleep(random.uniform(1, 1.5))
             break
         else:
@@ -63,25 +64,25 @@ def Continue(index=Contains.index, flag=1):
     if flag == 1:
         while True:
             if utils.find_image(Contains.src, Contains.TapContinue, confidence=conf):
-                print(utils.tap(round(random.uniform(100, 1000), ndigits=3),
+                logger.info(utils.tap(round(random.uniform(100, 1000), ndigits=3),
                                 round(random.choice([random.uniform(100, 282), random.uniform(510, 700)]), ndigits=3),
                                 index) + '[随机点击]')
                 break
             else:
                 conf -= 0.05
                 if conf < 0.7:
-                    return None
+                    raise Exception("Couldn't find image")
     elif flag == 2:
         while True:
             if utils.find_image(Contains.src, Contains.SmContinue, confidence=conf):
-                print(utils.tap(round(random.uniform(100, 1000), ndigits=3),
+                logger.info(utils.tap(round(random.uniform(100, 1000), ndigits=3),
                                 round(random.choice([random.uniform(100, 282), random.uniform(510, 700)]), ndigits=3),
                                 index) + '[随机点击]')
                 break
             else:
                 conf -= 0.05
                 if conf < 0.7:
-                    return None
+                    raise Exception("Couldn't find image")
 
 
 # --------------------------------流程控制函数-----------------------------------------------
@@ -90,9 +91,9 @@ def init(index, target):
     utils.screen_shot(r'.\icons\AzurLane', title='碧蓝航线')
     if utils.find_image(Contains.src, target):
         x, y = utils.find_image(Contains.src, target)
-        print(utils.tap(x, y, index) + '[点击进入的关卡]')
+        logger.info(utils.tap(x, y, index) + '[点击进入的关卡]')
     else:
-        print(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]" + "[couldn't find image]")
+        logger.error("[couldn't find image]")
 
 
 def start(index):
@@ -100,9 +101,9 @@ def start(index):
     utils.screen_shot(r'.\icons\AzurLane', title='碧蓝航线')
     if utils.find_image(Contains.src, Contains.go):
         x, y = utils.find_image(Contains.src, Contains.go)
-        print(utils.tap(x, y, index) + '[点击开始前往]')
+        logger.info(utils.tap(x, y, index) + '[点击开始前往]')
     else:
-        print(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]" + "[couldn't find image]")
+        logger.error("[couldn't find image]")
 
 
 def clip_select_team(flag=None):
@@ -113,11 +114,11 @@ def clip_select_team(flag=None):
     x1, y1 = team_selector[0]['result']
     x2, y2 = team_selector[1]['result']
     if flag == 1:
-        print(utils.tap(x1, y1, 1) + '[点击第一个选择按钮]')
+        logger.info(utils.tap(x1, y1, 1) + '[点击第一个选择按钮]')
         time.sleep(random.uniform(0.5, 1))
         return f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]" + f'[点击坐标({x1},{y1})][点击选择舰队1]'
     elif flag == 2:
-        print(utils.tap(x2, y2, 1) + '[点击第二个选择按钮]')
+        logger.info(utils.tap(x2, y2, 1) + '[点击第二个选择按钮]')
         time.sleep(random.uniform(0.5, 1))
         return f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]" + f'[点击坐标({x2},{y2})][点击选择舰队2]'
 
@@ -160,7 +161,7 @@ def gaming_retire(index):
         utils.screen_shot(r'.\icons\AzurLane', title='碧蓝航线')
         if utils.find_image(Contains.src, Contains.retire):
             x1, y1 = utils.find_image(Contains.src, Contains.retire)
-            print(utils.tap(x1, y1, 1) + '[点击一键退役]')
+            logger.info(utils.tap(x1, y1, 1) + '[点击一键退役]')
             time.sleep(random.uniform(0.5, 1.5))
             utils.screen_shot(r'.\icons\AzurLane', title='碧蓝航线')
             if utils.find_image(Contains.src, Contains.over_retire):
@@ -168,7 +169,7 @@ def gaming_retire(index):
             time.sleep(random.uniform(0.5, 1.5))
             yes(index, 0.9)
             time.sleep(random.uniform(0.5, 1.5))
-            print(utils.tap(round(random.uniform(100, 1000), ndigits=3),
+            logger.info(utils.tap(round(random.uniform(100, 1000), ndigits=3),
                             round(random.choice([random.uniform(100, 282), random.uniform(510, 700)]), ndigits=3),
                             1) + '[随机点击]')
             time.sleep(random.uniform(0.5, 1.5))
@@ -176,17 +177,17 @@ def gaming_retire(index):
             time.sleep(random.uniform(0.3, 1))
             yes(index, 0.9)
             time.sleep(random.uniform(0.3, 1))
-            print(utils.tap(round(random.uniform(100, 1000), ndigits=3),
+            logger.info(utils.tap(round(random.uniform(100, 1000), ndigits=3),
                             round(random.choice([random.uniform(100, 282), random.uniform(510, 700)]), ndigits=3),
                             1) + '[随机点击]')
-    return print(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]" + "[退役完成]")
+    return logger.info("[退役完成]")
 
 
 def clear_storehouse(index):
     # 作战中清理仓库
     if utils.find_image(Contains.src, Contains.full_store):
         x, y = utils.find_image(Contains.src, Contains.tidy)
-        print(utils.tap(x, y, index) + '[点击整理]')
+        logger.info(utils.tap(x, y, index) + '[点击整理]')
         time.sleep(random.uniform(0.5, 1))
     try:
         gaming_retire(index)
@@ -198,7 +199,7 @@ def clear_storehouse(index):
         # 添加自定义异常
         time.sleep(2)
         utils.cf_action(Contains.src, Contains.autoplay, index, '[点击自动寻敌]')
-    return print(f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]" + "[清理仓库完成]")
+    return logger.info("[清理仓库完成]")
 
 
 def low_mood(index):
@@ -212,7 +213,7 @@ def continue_work(index):
     # 点击再次前往
     if utils.find_image(Contains.src, Contains.working):
         x, y = utils.find_image(Contains.src, Contains.working)
-        print(utils.tap(x, y, index) + '[点击再次前往]')
+        logger.info(utils.tap(x, y, index) + '[点击再次前往]')
 
 
 def final_continue(index = Contains.index):
@@ -223,11 +224,15 @@ def final_continue(index = Contains.index):
     if utils.find_image(Contains.src, Contains.SpecAgain, confidence=0.8):
         utils.cf_action(Contains.src, Contains.SpecAgain, index, detals)
     else:
-        print(utils.tap(round(random.uniform(100, 1000), ndigits=3),
+        logger.info(utils.tap(round(random.uniform(100, 1000), ndigits=3),
                         round(random.uniform(640, 720), ndigits=3),
                         index) + '[随机点击]')
         time.sleep(random.uniform(0.8,1.5))
-        try:
-            utils.cf_action(Contains.src, Contains.SpecAgain, index, detals)
-        except:
-            pass
+        utils.screen_shot(r'.\icons\AzurLane', title='碧蓝航线')
+        while True:
+            if utils.find_image(Contains.src, Contains.SpecAgain):
+                utils.cf_action(Contains.src, Contains.SpecAgain, index, detals)
+                break
+            else:
+                time.sleep(0.5)
+                utils.screen_shot(r'.\icons\AzurLane', title='碧蓝航线')

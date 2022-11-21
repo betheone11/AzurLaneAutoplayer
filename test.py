@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import random
+import time
 
 import UpperUtils
 import utils
@@ -202,11 +203,15 @@ from Contains import Contains
 # UpperUtils.yes(1, 0.95)
 # utils.screen_shot(r'.\icons\AzurLane', title='碧蓝航线')
 # print(utils.find_image(Contains.src, Contains.SmContinue))
-utils.screen_shot(r'.\icons\AzurLane', title='碧蓝航线')
-if utils.find_image(Contains.src, Contains.SpecAgain, confidence=0.8):
-    detals = '点击再次前往'
-    utils.cf_action(Contains.src, Contains.SpecAgain,Contains.index,detals)
-else:
-    print(utils.tap(round(random.uniform(100, 1000), 3),
-                    round(random.uniform(640, 720), 3),
-                    Contains.index) + '[随机点击]')
+# utils.screen_shot(r'.\icons\AzurLane', title='碧蓝航线')
+# if utils.find_image(Contains.src, Contains.SpecAgain, confidence=0.8):
+#     detals = '点击再次前往'
+#     utils.cf_action(Contains.src, Contains.SpecAgain,Contains.index,detals)
+# else:
+#     print(utils.tap(round(random.uniform(100, 1000), 3),
+#                     round(random.uniform(640, 720), 3),
+#                     Contains.index) + '[随机点击]')
+import datetime
+from loguru import logger
+logger.error(utils.tap(10, 10,1) + '[点击确定键]')
+print(utils.tap(10, 10,1) + '[点击确定键]')
