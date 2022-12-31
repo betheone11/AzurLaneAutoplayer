@@ -25,6 +25,14 @@ from Contains import Contains
 
 def Normal_level(n):
     count = 0
+    try:
+        n = int(n)
+    except Exception:
+        exit(1)
+    nowt = time.strftime("%Y-%m-%d-%H_%M_%S", time.localtime())
+    log_name = f'{nowt}.log'
+    logger.add(f'log/{log_name}')
+    logger.info("[开始运行脚本]")
     for i in range(n):
         count += 1
         exit_flag = 0
@@ -81,6 +89,9 @@ if __name__ == '__main__':
     log_name = f'{nowt}.log'
     logger.add(f'log/{log_name}')
     logger.info("[开始运行脚本]")
+    # logger.info("请输入备注：")
+    # info=input()
+    # logger.info(f"选择关卡{info}")
     logger.info("[请输入刷多少次]")
     n = int(input())
     Normal_level(n)

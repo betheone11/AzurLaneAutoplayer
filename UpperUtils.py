@@ -188,14 +188,14 @@ def clear_storehouse(index):
     if utils.find_image(Contains.src, Contains.full_store):
         x, y = utils.find_image(Contains.src, Contains.tidy)
         logger.info(utils.tap(x, y, index) + '[点击整理]')
-        time.sleep(random.uniform(0.5, 1))
+        time.sleep(random.uniform(1, 1.5))
     try:
         gaming_retire(index)
         time.sleep(random.uniform(1, 1.5))
         cancel(index)
         time.sleep(1)  # 不能删掉，否则会找不到图片或者点击过快无法自律作战（就是卡住了）
         utils.cf_action(Contains.src, Contains.autoplay, index, '[点击自动寻敌]')
-    except:
+    except Exception:
         # 添加自定义异常
         time.sleep(2)
         utils.cf_action(Contains.src, Contains.autoplay, index, '[点击自动寻敌]')
